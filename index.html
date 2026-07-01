@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="theme-color" content="#050508">
+<meta name="theme-color" content="#050508" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#F8F7FF" media="(prefers-color-scheme: light)">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>NexIIT</title>
@@ -14,29 +15,23 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
-/* ════════════════════════════════════════
-   NEXIIT — BASE DESIGN SYSTEM
-   Premium Dark — Production Grade
-   ════════════════════════════════════════ */
+/* ══════════════════════════════
+   THEME SYSTEM — AUTO DARK/LIGHT
+══════════════════════════════ */
 
-
-
+/* ── DARK MODE (default) ── */
 :root {
-  /* Core Palette */
   --bg:       #050508;
   --bg2:      #0a0a0f;
   --bg3:      #0f0f18;
   --card:     #111119;
   --card2:    #16161f;
   --card3:    #1c1c28;
-
-  /* Borders */
   --border:   rgba(255,255,255,0.06);
   --border2:  rgba(255,255,255,0.10);
   --border3:  rgba(255,255,255,0.16);
-
-  /* Brand */
   --accent:   #7C5CFC;
   --acc2:     #9B6DFF;
   --acc3:     #C084FC;
@@ -46,24 +41,262 @@
   --green:    #34D399;
   --red:      #F87171;
   --orange:   #FB923C;
-
-  /* Text */
   --tx:       #F1F0FF;
   --tx2:      #7B7A9A;
   --tx3:      #3D3C55;
-
-  /* Fonts */
   --fh: 'Space Grotesk', sans-serif;
   --fb: 'Plus Jakarta Sans', sans-serif;
-
-  /* Layout */
   --nav-h:    60px;
   --top-h:    54px;
   --r-card:   18px;
   --r-btn:    14px;
   --safe-b:   env(safe-area-inset-bottom, 0px);
   --safe-t:   env(safe-area-inset-top, 0px);
+
+  /* Theme-specific shadows */
+  --shadow-card: 0 4px 24px rgba(0,0,0,0.4);
+  --shadow-btn:  0 8px 24px rgba(124,92,252,0.3);
+  --shadow-modal:0 32px 80px rgba(0,0,0,0.5);
 }
+
+/* ── LIGHT MODE ── */
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg:       #F8F7FF;
+    --bg2:      #EEEDF8;
+    --bg3:      #E5E4F3;
+    --card:     #FFFFFF;
+    --card2:    #F3F2FC;
+    --card3:    #EAE9F7;
+    --border:   rgba(0,0,0,0.07);
+    --border2:  rgba(0,0,0,0.11);
+    --border3:  rgba(0,0,0,0.16);
+    --accent:   #6D44FB;
+    --acc2:     #7C5CFC;
+    --acc3:     #9333EA;
+    --pink:     #DB2777;
+    --cyan:     #0891B2;
+    --gold:     #D97706;
+    --green:    #059669;
+    --red:      #DC2626;
+    --orange:   #EA580C;
+    --tx:       #0F0E1A;
+    --tx2:      #5C5A7A;
+    --tx3:      #9896B2;
+    --shadow-card: 0 4px 24px rgba(0,0,0,0.08);
+    --shadow-btn:  0 8px 24px rgba(109,68,251,0.25);
+    --shadow-modal:0 32px 80px rgba(0,0,0,0.15);
+  }
+
+  /* Light mode overrides */
+  body::before { opacity: 0.15; }
+
+  .topbar {
+    background: rgba(248,247,255,0.9) !important;
+    border-bottom-color: var(--border) !important;
+  }
+  .topbar::after {
+    background: linear-gradient(90deg, transparent, rgba(109,68,251,0.2), transparent) !important;
+  }
+
+  .bnav {
+    background: rgba(248,247,255,0.96) !important;
+    border-top-color: var(--border) !important;
+  }
+  .bnav::before {
+    background: linear-gradient(90deg, transparent, rgba(109,68,251,0.15), transparent) !important;
+  }
+
+  .t-logo {
+    background: linear-gradient(135deg, #4A2FD4, #7C5CFC) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+  }
+
+  .l-wordmark {
+    background: linear-gradient(135deg, #3B1FBB 0%, #6D44FB 45%, #DB2777 100%) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+  }
+
+  .sp-wordmark {
+    background: linear-gradient(135deg, #2D1599 0%, #6D44FB 50%, #DB2777 100%) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+  }
+
+  /* Cards get subtle shadow in light mode */
+  .ch-item, .lec-item, .set-item, .test-type, .pyq-item, .book-card, .lb-row, .stat-box, .sub-card, .ach-chip, .flash-card {
+    box-shadow: var(--shadow-card) !important;
+  }
+
+  .l-card {
+    box-shadow: 0 8px 40px rgba(0,0,0,0.1), 0 0 0 1px var(--border) !important;
+  }
+
+  .modal-sheet {
+    background: var(--bg) !important;
+    box-shadow: 0 -8px 40px rgba(0,0,0,0.15) !important;
+  }
+
+  /* Countdown cards light adjustments */
+  .countdown-card.c-chill {
+    background: linear-gradient(135deg, rgba(34,211,238,0.12), rgba(109,68,251,0.08)) !important;
+  }
+  .countdown-card.c-focus {
+    background: linear-gradient(135deg, rgba(217,119,6,0.12), rgba(234,88,12,0.08)) !important;
+  }
+  .countdown-card.c-war {
+    background: linear-gradient(135deg, rgba(220,38,38,0.12), rgba(234,88,12,0.08)) !important;
+  }
+
+  /* Home ambient */
+  #tab-home {
+    background:
+      radial-gradient(ellipse 80% 35% at 90% 0%, rgba(109,68,251,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 25% at 10% 60%, rgba(219,39,119,0.03) 0%, transparent 60%) !important;
+  }
+  #tab-tests  { background: radial-gradient(ellipse 70% 30% at 50% 0%, rgba(220,38,38,0.04), transparent) !important; }
+  #tab-library{ background: radial-gradient(ellipse 60% 30% at 50% 0%, rgba(5,150,105,0.04), transparent) !important; }
+  #tab-rank   { background: radial-gradient(ellipse 60% 30% at 50% 0%, rgba(217,119,6,0.04), transparent) !important; }
+  #tab-profile{ background: radial-gradient(ellipse 70% 35% at 50% 0%, rgba(109,68,251,0.05), transparent) !important; }
+
+  /* Streak day */
+  .streak-day { background: var(--card2) !important; }
+
+  /* Splash light */
+  #splash { background: var(--bg) !important; }
+  .sp-bar-track { background: var(--card3) !important; }
+  .sp-icon {
+    background: linear-gradient(135deg, rgba(109,68,251,0.15), rgba(147,51,234,0.08)) !important;
+    border-color: rgba(109,68,251,0.3) !important;
+  }
+  .sp-glow { background: radial-gradient(circle, rgba(109,68,251,0.2) 0%, transparent 70%) !important; }
+
+  /* Onboarding */
+  #s-onboard { background: var(--bg) !important; }
+  #s-onboard::before {
+    background:
+      radial-gradient(ellipse 60% 40% at 30% 20%, rgba(109,68,251,0.06), transparent 60%),
+      radial-gradient(ellipse 50% 35% at 80% 70%, rgba(219,39,119,0.04), transparent 60%) !important;
+  }
+
+  .ob-text-inp, .l-inp {
+    background: var(--card2) !important;
+  }
+  .ob-chip { background: var(--card2) !important; }
+  .ob-year-chip { background: var(--card2) !important; }
+
+  /* Pills */
+  .pill-xp  { background: rgba(217,119,6,0.1) !important; border-color: rgba(217,119,6,0.2) !important; }
+  .pill-str { background: rgba(220,38,38,0.08) !important; border-color: rgba(220,38,38,0.18) !important; }
+
+  /* Nav */
+  .ni-icon { filter: grayscale(1) opacity(0.4) !important; }
+  .ni.active .ni-icon { filter: none !important; }
+
+  /* Subject cards */
+  .sc-ph { background: linear-gradient(135deg, rgba(37,99,235,0.1), rgba(37,99,235,0.04)) !important; }
+  .sc-ch { background: linear-gradient(135deg, rgba(5,150,105,0.1), rgba(5,150,105,0.04)) !important; }
+  .sc-ma { background: linear-gradient(135deg, rgba(217,119,6,0.1), rgba(217,119,6,0.04)) !important; }
+  .sc-fr { background: linear-gradient(135deg, rgba(109,68,251,0.1), rgba(109,68,251,0.04)) !important; }
+
+  /* Login screen bg */
+  #s-login::before {
+    background:
+      radial-gradient(ellipse 60% 40% at 20% 10%, rgba(109,68,251,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 35% at 85% 80%, rgba(219,39,119,0.05) 0%, transparent 60%) !important;
+  }
+
+  /* Ftab */
+  .ftab.active {
+    background: rgba(109,68,251,0.1) !important;
+    border-color: rgba(109,68,251,0.3) !important;
+    color: var(--acc3) !important;
+  }
+
+  /* Chapter num */
+  .n-ph { background: rgba(37,99,235,0.1) !important; color: #2563EB !important; }
+  .n-ch { background: rgba(5,150,105,0.1) !important; color: #059669 !important; }
+  .n-ma { background: rgba(217,119,6,0.1)  !important; color: #D97706 !important; }
+
+  /* House cards */
+  .h-aravalli { background: linear-gradient(135deg,rgba(37,99,235,0.1),rgba(79,70,229,0.05)) !important; }
+  .h-shivalik { background: linear-gradient(135deg,rgba(5,150,105,0.1),rgba(20,184,166,0.05)) !important; }
+  .h-udaygiri { background: linear-gradient(135deg,rgba(217,119,6,0.1),rgba(234,88,12,0.05)) !important; }
+  .h-neelgiri { background: linear-gradient(135deg,rgba(109,68,251,0.1),rgba(219,39,119,0.05)) !important; }
+
+  /* Quick icons */
+  .qic-test   { background: rgba(220,38,38,0.08) !important; }
+  .qic-lib    { background: rgba(5,150,105,0.08) !important; }
+  .qic-room   { background: rgba(109,68,251,0.1) !important; }
+  .qic-music  { background: rgba(219,39,119,0.08) !important; }
+  .qic-formula{ background: rgba(217,119,6,0.08) !important; }
+
+  /* Social fab */
+  .social-fab {
+    background: rgba(109,68,251,0.12) !important;
+    border-color: rgba(109,68,251,0.25) !important;
+  }
+
+  /* Toast */
+  .toast-el { background: var(--card) !important; }
+
+  /* Guest banner */
+  .guest-banner {
+    background: rgba(217,119,6,0.06) !important;
+    border-color: rgba(217,119,6,0.15) !important;
+  }
+
+  /* Loading overlay */
+  .loading-overlay { background: rgba(248,247,255,0.88) !important; }
+
+  /* Inner tabs */
+  .inner-tab.active {
+    background: rgba(109,68,251,0.1) !important;
+    border-color: rgba(109,68,251,0.3) !important;
+    color: var(--acc3) !important;
+  }
+
+  /* LB period tab */
+  .lb-period-tab.active {
+    background: rgba(217,119,6,0.12) !important;
+    border-color: rgba(217,119,6,0.3) !important;
+  }
+
+  /* Podium */
+  .pod-1 .pod-plinth { background: linear-gradient(180deg,rgba(217,119,6,0.2),rgba(217,119,6,0.05)) !important; }
+  .pod-2 .pod-plinth { background: linear-gradient(180deg,rgba(100,116,139,0.2),rgba(100,116,139,0.05)) !important; }
+  .pod-3 .pod-plinth { background: linear-gradient(180deg,rgba(180,83,9,0.2),rgba(180,83,9,0.05)) !important; }
+
+  /* Profile av */
+  .prof-av {
+    border-color: rgba(109,68,251,0.3) !important;
+    background: rgba(109,68,251,0.06) !important;
+    box-shadow: 0 0 30px rgba(109,68,251,0.1) !important;
+  }
+
+  /* Btn primary shadow lighter */
+  .btn-primary, .ob-btn-next {
+    box-shadow: var(--shadow-btn) !important;
+  }
+}
+
+/* ── MANUAL THEME OVERRIDE (user can force) ── */
+[data-theme="dark"] {
+  color-scheme: dark;
+}
+[data-theme="light"] {
+  color-scheme: light;
+}
+
+/* ════════════════════════════════════════
+   NEXIIT — BASE DESIGN SYSTEM
+   Premium Dark — Production Grade
+   ════════════════════════════════════════ */
+
+
+
 
 *, *::before, *::after {
   margin: 0; padding: 0;
@@ -256,7 +489,6 @@ body::before {
 .sec-more { font-size: 12px; font-weight: 600; color: var(--acc2); cursor: pointer; }
 
 @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(1.5)} }
-
 /* ══════════════════
    LOGIN SCREEN
 ══════════════════ */
@@ -437,6 +669,43 @@ body::before {
   margin-bottom: 14px;
   font-size: 12px; color: var(--tx2); line-height: 1.6;
 }
+
+/* ── PREMIUM AUTH BUTTONS ── */
+.auth-btn {
+  width: 100%;
+  display: flex; align-items: center; justify-content: center;
+  gap: 12px; padding: 14px 20px;
+  border-radius: var(--r-btn); border: 1.5px solid var(--border2);
+  font-family: var(--fb); font-size: 14px; font-weight: 600;
+  cursor: pointer; transition: all 0.2s;
+  margin-bottom: 12px; position: relative; overflow: hidden;
+  letter-spacing: -0.1px;
+}
+.auth-btn:active { transform: scale(0.98); }
+.auth-btn span { flex: 1; text-align: center; }
+
+.auth-btn-google {
+  background: #fff;
+  border-color: rgba(0,0,0,0.12);
+  color: #1f1f1f;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+.auth-btn-google:active { background: #f8f8f8; }
+
+.auth-btn-telegram {
+  background: rgba(42,171,238,0.08);
+  border-color: rgba(42,171,238,0.25);
+  color: var(--tx);
+}
+.auth-btn-telegram:active { background: rgba(42,171,238,0.14); }
+
+/* Divider */
+.auth-divider {
+  display: flex; align-items: center; gap: 12px;
+  margin: 4px 0 16px;
+}
+.auth-divider-line { flex: 1; height: 1px; background: var(--border); }
+.auth-divider-text { font-size: 11px; color: var(--tx3); font-weight: 600; letter-spacing: 1px; }
 
 /* ══════════════════
    ONBOARDING
@@ -1372,74 +1641,74 @@ body::before {
 
 <!-- LOGIN SCREEN -->
 <div id="s-login" class="screen">
+
+  <!-- Language Switcher -->
+  <div style="position:absolute;top:20px;right:20px;display:flex;gap:6px;z-index:10;">
+    <div onclick="setLang('en')" id="lang-en"
+      style="padding:5px 12px;border-radius:99px;font-size:11px;font-weight:700;cursor:pointer;border:1px solid var(--border2);background:var(--card);color:var(--tx2);transition:all 0.2s;letter-spacing:0.5px;">
+      EN
+    </div>
+    <div onclick="setLang('hi')" id="lang-hi"
+      style="padding:5px 12px;border-radius:99px;font-size:11px;font-weight:700;cursor:pointer;border:1px solid var(--border2);background:var(--card);color:var(--tx2);transition:all 0.2s;letter-spacing:0.5px;">
+      हिं
+    </div>
+  </div>
+
   <div class="l-top">
     <div class="l-wordmark">NexIIT</div>
-    <div class="l-tagline">Learn · Understand · Master</div>
+    <div class="l-tagline" id="sp-tagline-login">Learn · Understand · Master</div>
   </div>
   <div class="l-card">
-    <div class="l-card-title">Login karo</div>
-    <div class="l-card-desc">Apna method choose karo</div>
-
-    <div class="login-tabs">
-      <div class="login-tab active" onclick="switchLoginTab('telegram',this)">Telegram</div>
-      <div class="login-tab" onclick="switchLoginTab('sms',this)">Mobile</div>
-      <div class="login-tab" onclick="switchLoginTab('guest',this)">Guest</div>
+    <!-- Hidden Google One Tap initializer -->
+    <div id="g_id_onload"
+      data-client_id="91724908060-frfms58ufivngehlomjro76i2m5ae3gm.apps.googleusercontent.com"
+      data-callback="handleGoogleLogin"
+      data-auto_select="false"
+      data-cancel_on_tap_outside="false"
+      data-itp_support="true">
     </div>
 
-    <!-- TELEGRAM -->
-    <div class="login-panel active" id="panel-telegram">
-      <div class="tg-box">
-        <script async src="https://telegram.org/js/telegram-widget.js?23"
-          data-telegram-login="Nexiit_bot"
-          data-size="large"
-          data-onauth="onTelegramAuth(user)"
-          data-request-access="write"></script>
-      </div>
-      <div class="l-err" id="tg-err"></div>
+    <div class="l-card-title" id="l-title">Welcome</div>
+    <div class="l-card-desc" id="l-desc">Sign in to continue your preparation</div>
+
+    <!-- GOOGLE BUTTON — Custom premium style -->
+    <button class="auth-btn auth-btn-google" onclick="triggerGoogleLogin()">
+      <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/>
+        <path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.909-2.259c-.805.54-1.835.86-3.047.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z" fill="#34A853"/>
+        <path d="M3.964 10.71c-.18-.54-.282-1.117-.282-1.71s.102-1.17.282-1.71V4.958H.957C.347 6.173 0 7.548 0 9s.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/>
+        <path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z" fill="#EA4335"/>
+      </svg>
+      <span>Continue with Google</span>
+    </button>
+
+    <!-- TELEGRAM WIDGET — always visible, official widget -->
+    <div id="tg-widget-wrap" style="display:flex;justify-content:center;margin-bottom:4px;min-height:50px;align-items:center;">
+      <script async src="https://telegram.org/js/telegram-widget.js?23"
+        data-telegram-login="Nexiit_bot"
+        data-size="large"
+        data-radius="12"
+        data-onauth="onTelegramAuth(user)"
+        data-request-access="write"></script>
     </div>
 
-    <!-- SMS OTP -->
-    <div class="login-panel" id="panel-sms">
-      <div id="sms-step1">
-        <div class="inp-wrap">
-          <span class="inp-prefix">+91</span>
-          <input class="l-inp has-prefix" type="tel" id="phone-inp"
-            placeholder="10 digit mobile number"
-            maxlength="10" inputmode="numeric"
-            oninput="this.value=this.value.replace(/\D/g,'')"
-            onkeydown="if(event.key==='Enter')sendSmsOtp()">
-        </div>
-        <button class="btn-primary" id="btn-send-otp" onclick="sendSmsOtp()">OTP Send Karo</button>
-      </div>
-      <div class="otp-section" id="sms-step2">
-        <div style="font-size:12px;color:var(--tx2);margin-bottom:10px;text-align:center;" id="otp-sent-msg">OTP bheja gaya</div>
-        <div class="inp-wrap">
-          <input class="l-inp otp-inp" type="tel" id="otp-inp"
-            placeholder="000000" maxlength="6" inputmode="numeric"
-            oninput="this.value=this.value.replace(/\D/g,'');if(this.value.length===6)verifySmsOtp()">
-        </div>
-        <button class="btn-primary" onclick="verifySmsOtp()">Verify Karo</button>
-        <div class="otp-timer">
-          <span id="otp-timer-text">60s mein expire</span>
-          <span class="otp-resend" id="otp-resend" style="display:none" onclick="sendSmsOtp()"> Dobara bhejo</span>
-        </div>
-      </div>
-      <div class="l-err" id="sms-err"></div>
+    <!-- Divider -->
+    <div class="auth-divider">
+      <div class="auth-divider-line"></div>
+      <span class="auth-divider-text">or</span>
+      <div class="auth-divider-line"></div>
     </div>
 
     <!-- GUEST -->
-    <div class="login-panel" id="panel-guest">
-      <div class="guest-info">
-        Guest mode mein app explore kar sakte ho. Content access ke liye login karna hoga.
-      </div>
-      <div class="inp-wrap">
-        <input class="l-inp" type="text" id="guest-name-inp"
-          placeholder="Apna naam daalo" maxlength="30"
-          onkeydown="if(event.key==='Enter')guestLogin()">
-      </div>
-      <button class="btn-ghost" onclick="guestLogin()">Guest ke roop mein explore karo</button>
-      <div class="l-err" id="guest-err"></div>
+    <div class="inp-wrap">
+      <input class="l-inp" type="text" id="guest-name-inp"
+        placeholder="Enter your name to explore as Guest"
+        maxlength="30"
+        onkeydown="if(event.key==='Enter')guestLogin()">
     </div>
+    <button class="btn-ghost" onclick="guestLogin()">Continue as Guest</button>
+    <div class="l-err" id="guest-err"></div>
+    <div class="l-err" id="tg-err"></div>
   </div>
 </div>
 
@@ -1461,13 +1730,13 @@ body::before {
     <div class="ob-field">
       <label class="ob-field-label">Full Name</label>
       <input class="ob-text-inp" type="text" id="ob-name-inp"
-        placeholder="Apna poora naam daalo"
+        placeholder="Enter your full name"
         maxlength="40"
         onkeydown="if(event.key==='Enter') obNext()">
     </div>
     <div class="ob-err" id="ob-err-1"></div>
     <div class="ob-nav">
-      <button class="ob-btn-next" onclick="obNext()">Aage →</button>
+      <button class="ob-btn-next" onclick="obNext()">Continue →</button>
     </div>
   </div>
 
@@ -1502,7 +1771,7 @@ body::before {
     <div class="ob-err" id="ob-err-2"></div>
     <div class="ob-nav">
       <button class="ob-btn-back" onclick="obBack()">←</button>
-      <button class="ob-btn-next" onclick="obNext()">Aage →</button>
+      <button class="ob-btn-next" onclick="obNext()">Continue →</button>
     </div>
   </div>
 
@@ -1533,7 +1802,7 @@ body::before {
     <div class="ob-err" id="ob-err-3"></div>
     <div class="ob-nav">
       <button class="ob-btn-back" onclick="obBack()">←</button>
-      <button class="ob-btn-next" onclick="obNext()">NexIIT Start Karo 🚀</button>
+      <button class="ob-btn-next" onclick="obNext()">Start NexIIT 🚀</button>
     </div>
   </div>
 
@@ -1556,10 +1825,10 @@ body::before {
     <div class="tab active" id="tab-home">
       <div class="home-hero">
         <div class="home-greet" id="v-greet">Good morning</div>
-        <div class="home-name">Kya haal hai, <em id="v-name">...</em>?</div>
+        <div class="home-name">Hello, <em id="v-name">...</em>?</div>
       </div>
 
-      <div id="smart-banner" class="countdown-card c-chill" onclick="toast('Focus karo!')">
+      <div id="smart-banner" class="countdown-card c-chill" onclick="toast(t('toast_focus'))">
         <div class="cd-top">
           <div class="cd-label">Target Countdown</div>
           <div class="cd-emoji" id="smart-em">📚</div>
@@ -1589,7 +1858,7 @@ body::before {
       <div class="sec">
         <div class="sec-hdr">
           <div class="sec-title" style="margin-bottom:0">Subjects</div>
-          <div class="sec-more" onclick="goTab('chapters')">Sab dekho ›</div>
+          <div class="sec-more" onclick="goTab('chapters')">View All →</div>
         </div>
         <div class="sub-grid">
           <div class="sub-card sc-ph" onclick="openSubject('Physics')">
@@ -1610,7 +1879,7 @@ body::before {
             <div class="sub-prog" id="v-ma">0 chapters</div>
             <div class="sub-bar"><div class="sub-bf" id="v-ma-b" style="width:0%"></div></div>
           </div>
-          <div class="sub-card sc-fr" onclick="toast('Free module — jaldi aata hai!')">
+          <div class="sub-card sc-fr" onclick="toast(t('toast_free'))">
             <div class="sub-icon">🎁</div>
             <div class="sub-name">Free Module</div>
             <div class="sub-prog">Try karo!</div>
@@ -1638,7 +1907,7 @@ body::before {
             <div class="quick-ic qic-music">🎵</div>
             <div class="quick-label">Music</div>
           </div>
-          <div class="quick-btn" onclick="toast('Formula Sheet loading...')">
+          <div class="quick-btn" onclick="toast(t('toast_formula'))">
             <div class="quick-ic qic-formula">📋</div>
             <div class="quick-label">Formulas</div>
           </div>
@@ -1668,7 +1937,7 @@ body::before {
     <div class="tab" id="tab-chapters">
       <div id="ch-list-main">
         <div class="ch-header">
-          <div class="ch-main-title">Chapters</div>
+          <div class="ch-main-title" id="ch-main-title-el">Chapters</div>
         </div>
         <div class="ftabs">
           <div class="ftab active" onclick="filterSub(this,'Physics')">Physics</div>
@@ -1697,11 +1966,11 @@ body::before {
         <div class="test-title">Test Series</div>
         <div class="test-sub-lbl">Pattern mein practice karo</div>
       </div>
-      <div class="live-banner" onclick="toast('Live test — coming soon!')">
+      <div class="live-banner" onclick="toast(t('toast_live'))">
         <div class="live-badge"><div class="live-dot"></div>LIVE SOON</div>
         <div class="live-name">Full Mock Test — JEE Mains Pattern</div>
         <div class="live-meta">3 Hours · 90 Questions · PCM</div>
-        <div class="live-btn">Register karo</div>
+        <div class="live-btn">Register</div>
       </div>
       <div class="sec">
         <div class="sec-title">Test Types</div>
@@ -1726,17 +1995,17 @@ body::before {
       <div class="sec">
         <div class="sec-title">PYQ Papers</div>
         <div class="pyq-row">
-          <div class="pyq-item" onclick="toast('JEE Mains 2024 loading...')">
+          <div class="pyq-item" onclick="toast(t('toast_pyq2024'))">
             <div class="pyq-yr">2024</div>
             <div><div class="pyq-name">JEE Mains 2024</div><div class="pyq-meta">Jan + Apr · 180 Qs</div></div>
             <div style="margin-left:auto;color:var(--tx3)">›</div>
           </div>
-          <div class="pyq-item" onclick="toast('JEE Mains 2023 loading...')">
+          <div class="pyq-item" onclick="toast(t('toast_pyq2023'))">
             <div class="pyq-yr">2023</div>
             <div><div class="pyq-name">JEE Mains 2023</div><div class="pyq-meta">Jan + Apr · 180 Qs</div></div>
             <div style="margin-left:auto;color:var(--tx3)">›</div>
           </div>
-          <div class="pyq-item" onclick="toast('JEE Advanced 2024 loading...')">
+          <div class="pyq-item" onclick="toast(t('toast_adv'))">
             <div class="pyq-yr" style="color:#f59e0b;background:rgba(245,158,11,0.1);border-color:rgba(245,158,11,0.2);">ADV</div>
             <div><div class="pyq-name">JEE Advanced 2024</div><div class="pyq-meta">Paper 1+2 · 54 Qs</div></div>
             <div style="margin-left:auto;color:var(--tx3)">›</div>
@@ -1749,7 +2018,7 @@ body::before {
     <div class="tab" id="tab-library">
       <div class="lib-hero">
         <div class="lib-title">Library</div>
-        <div class="lib-sub">Books, Notes, PYQ PDFs — sab ek jagah</div>
+        <div class="lib-sub">Books, Notes, PYQ PDFs — all in one place</div>
       </div>
       <div class="ftabs">
         <div class="ftab active" onclick="filterLib(this,'all')">All</div>
@@ -1799,7 +2068,7 @@ body::before {
     <div class="tab" id="tab-rank">
       <div class="lb-hero">
         <div class="lb-title">Leaderboard</div>
-        <div class="lb-sub">Kaun banega NexIIT ka Raja?</div>
+        <div class="lb-sub">Who will be the NexIIT champion?</div>
         <div class="lb-period-tabs">
           <div class="lb-period-tab active" onclick="lbPeriod(this,'weekly')">This Week</div>
           <div class="lb-period-tab" onclick="lbPeriod(this,'monthly')">Monthly</div>
@@ -1834,31 +2103,31 @@ body::before {
       </div>
       <div class="prof-sections">
         <div class="prof-sec-title">Account</div>
-        <div class="set-item" onclick="toast('Premium — coming soon!')">
+        <div class="set-item" onclick="toast(t('toast_premium'))">
           <div class="set-ic si-prem">💎</div>
-          <div style="flex:1"><div class="set-label">Subscribe — Rs.499/month</div><div class="set-desc">Saare chapters, tests, rooms unlock karo</div></div>
+          <div style="flex:1"><div class="set-label">Subscribe — ₹499/month</div><div class="set-desc">Unlock all chapters, tests and rooms</div></div>
           <div class="set-arr">›</div>
         </div>
-        <div class="set-item" onclick="toast('Share card — coming soon!')">
+        <div class="set-item" onclick="toast(t('toast_share'))">
           <div class="set-ic si-share">📸</div>
-          <div style="flex:1"><div class="set-label">Profile Share Card</div><div class="set-desc">Apna rank share karo</div></div>
+          <div style="flex:1"><div class="set-label">Profile Share Card</div><div class="set-desc">Share your rank</div></div>
           <div class="set-arr">›</div>
         </div>
         <div class="prof-sec-title">Community</div>
         <div class="set-item" onclick="window.open('https://t.me/Nexiit_bot','_blank')">
           <div class="set-ic si-tg">✈️</div>
-          <div style="flex:1"><div class="set-label">Telegram Community</div><div class="set-desc">Batch group join karo</div></div>
+          <div style="flex:1"><div class="set-label">Telegram Community</div><div class="set-desc">Join the batch group</div></div>
           <div class="set-arr">›</div>
         </div>
         <div class="set-item" onclick="openSocial()">
           <div class="set-ic" style="background:linear-gradient(135deg,rgba(168,85,247,0.15),rgba(108,99,255,0.1))">🏠</div>
-          <div style="flex:1"><div class="set-label">Hostel and Study Rooms</div><div class="set-desc">House join karo, saath padho</div></div>
+          <div style="flex:1"><div class="set-label">Hostel & Study Rooms</div><div class="set-desc">Join a house, study together</div></div>
           <div class="set-arr">›</div>
         </div>
         <div class="prof-sec-title">Settings</div>
         <div class="set-item" onclick="logout()">
           <div class="set-ic si-logout">🚪</div>
-          <div style="flex:1"><div class="set-label">Logout</div><div class="set-desc">Kal wapas aana!</div></div>
+          <div style="flex:1"><div class="set-label">Sign Out</div><div class="set-desc">See you tomorrow!</div></div>
           <div class="set-arr">›</div>
         </div>
       </div>
@@ -1892,12 +2161,12 @@ body::before {
 <div class="modal-overlay" id="social-modal" onclick="closeSocial(event)">
   <div class="modal-sheet">
     <div class="modal-handle"></div>
-    <div class="modal-title">Hostel and Social</div>
-    <div class="modal-sub">Apna house join karo — saath padho, saath jeeto</div>
+    <div class="modal-title" id="social-modal-title">Hostel & Social</div>
+    <div class="modal-sub" id="social-modal-sub">Join your house — study together, win together</div>
     <div class="online-strip">
       <div class="online-title" id="online-title">Loading...</div>
       <div class="online-row" id="online-row">
-        <div style="font-size:12px;color:var(--tx3);padding:8px 0">Members load ho rahe hain...</div>
+        <div style="font-size:12px;color:var(--tx3);padding:8px 0">Loading members...</div>
       </div>
     </div>
     <div style="padding:0 20px;margin-bottom:14px;"><div class="sec-title" style="margin-bottom:12px">Houses</div></div>
@@ -1908,28 +2177,28 @@ body::before {
         <div class="house-members" id="h-aravalli-count">-- members</div>
         <div class="house-pts">Room Open →</div>
       </div>
-      <div class="house-card h-shivalik" onclick="toast('Shivalik — jaldi aayega!')">
+      <div class="house-card h-shivalik" onclick="toast('Shivalik — coming soon!')">
         <div class="house-icon">🌿</div><div class="house-name">Shivalik</div>
         <div class="house-members">Coming Soon</div><div class="house-pts">-- pts</div>
       </div>
-      <div class="house-card h-udaygiri" onclick="toast('Udaygiri — jaldi aayega!')">
+      <div class="house-card h-udaygiri" onclick="toast('Udaygiri — coming soon!')">
         <div class="house-icon">☀️</div><div class="house-name">Udaygiri</div>
         <div class="house-members">Coming Soon</div><div class="house-pts">-- pts</div>
       </div>
-      <div class="house-card h-neelgiri" onclick="toast('Neelgiri — jaldi aayega!')">
+      <div class="house-card h-neelgiri" onclick="toast('Neelgiri — coming soon!')">
         <div class="house-icon">💜</div><div class="house-name">Neelgiri</div>
         <div class="house-members">Coming Soon</div><div class="house-pts">-- pts</div>
       </div>
     </div>
     <div id="pwa-install-btn" style="display:none;align-items:center;gap:10px;margin:0 16px 12px;padding:12px 16px;background:linear-gradient(135deg,rgba(108,99,255,0.15),rgba(168,85,247,0.1));border:1px solid rgba(108,99,255,0.3);border-radius:14px;cursor:pointer;" onclick="installPWA()">
       <div style="font-size:28px">📲</div>
-      <div style="flex:1"><div style="font-weight:700;font-size:14px;">NexIIT Install Karo</div><div style="font-size:11px;color:#94a3b8;">Home screen pe add karo</div></div>
+      <div style="flex:1"><div style="font-weight:700;font-size:14px;">Install NexIIT</div><div style="font-size:11px;color:#94a3b8;">Add to home screen</div></div>
       <div style="background:linear-gradient(135deg,#6366f1,#4f46e5);color:#fff;border-radius:10px;padding:7px 14px;font-size:13px;font-weight:600;">Install</div>
     </div>
     <div style="height:12px"></div>
     <div class="room-btn" onclick="openRoom()">
       <div class="room-btn-ic">🎥</div>
-      <div><div class="room-btn-name">Study Room kholna hai?</div><div class="room-btn-sub">Chat + music saath</div></div>
+      <div><div class="room-btn-name">Open a Study Room?</div><div class="room-btn-sub">Chat + music together</div></div>
       <div class="room-btn-arr">›</div>
     </div>
   </div>
@@ -1942,6 +2211,7 @@ body::before {
 </div>
 
 <div class="toast-el" id="toast-el"></div>
+<div id="google-popup-btn" style="display:none"></div>
 <div class="loading-overlay" id="loading-overlay">
   <div class="spin"></div>
   <div class="loading-text" id="loading-text">Please wait...</div>
@@ -1949,7 +2219,7 @@ body::before {
 <div class="toast-el" id="toast-el"></div>
 <script>
 // ── CONFIG & GLOBAL STATE ──
-const API = "https://nexiit-backend.saurabhkumar805274.workers.dev";
+const API = "https://nexiit-workers-saurabh.saurabhkumarsaurabhkumar29286.workers.dev";
 
 let USER       = null;
 let AUTH_TOKEN = null;
@@ -1994,6 +2264,522 @@ async function api(path, method = 'GET', body = null) {
   }
 }
 
+// ── LANGUAGE SYSTEM ──
+// EN = English, HI = Hindi
+// User selects language on first open — saved to localStorage
+
+const LANG = {
+  en: {
+    // Splash
+    tagline: "Learn · Understand · Master",
+    initializing: "Initializing",
+
+    // Login
+    login_title: "Sign In",
+    login_desc: "Choose your preferred method",
+    tab_telegram: "Telegram",
+    tab_mobile: "Mobile",
+    tab_guest: "Guest",
+    send_otp: "Send OTP",
+    verify: "Verify",
+    otp_sent: "OTP sent to",
+    otp_expire: "s until expiry",
+    otp_expired: "OTP expired",
+    resend: "Resend",
+    guest_info: "Explore the app as a guest. Login required for full content access.",
+    guest_placeholder: "Enter your name",
+    guest_btn: "Continue as Guest",
+    tg_domain_err: "Bot domain invalid",
+
+    // Onboarding
+    ob1_title: "What's your name?",
+    ob1_desc: "This will appear on your profile and leaderboard.",
+    ob1_label: "Full Name",
+    ob1_placeholder: "Enter your full name",
+
+    ob2_title: "Tell us about your preparation",
+    ob2_desc: "We'll personalize your content based on this.",
+    class_label: "Current Class",
+    exam_label: "Target Exam",
+
+    ob3_title: "When's your target exam?",
+    ob3_desc: "Your countdown and daily targets will be set accordingly.",
+    year_label: "Target Year",
+    this_year: "This year 🔥",
+    next_year: "Next year",
+
+    btn_next: "Continue →",
+    btn_back: "←",
+    btn_start: "Start NexIIT 🚀",
+
+    err_name: "Please enter your name — at least 2 letters",
+    err_class: "Please select your class",
+    err_exam: "Please select your target exam",
+    err_year: "Please select your target year",
+
+    // Home
+    greet_late: "Still up studying!",
+    greet_morning: "Good morning",
+    greet_afternoon: "Good afternoon",
+    greet_evening: "Good evening",
+    greet_night: "Late night session!",
+    hello: "Hello,",
+
+    countdown_label: "Target Countdown",
+    days_left: "Days",
+    today: "Today!",
+
+    guest_lock: "Guest mode — Login for full content access",
+
+    streak_title: "Weekly Streak",
+    subjects_title: "Subjects",
+    view_all: "View All →",
+    quick_title: "Quick Access",
+    progress_title: "Progress",
+
+    sub_ph: "Physics",
+    sub_ch: "Chemistry",
+    sub_ma: "Mathematics",
+    sub_fr: "Free Module",
+    sub_try: "Try it!",
+    chapters_word: "chapters",
+
+    q_tests: "Test Series",
+    q_lib: "Library",
+    q_room: "Study Room",
+    q_music: "Music",
+    q_formula: "Formulas",
+
+    stat_solved: "Solved",
+    stat_acc: "Accuracy",
+    stat_rank: "Rank",
+
+    days_short: ["M","T","W","T","F","S","S"],
+
+    // Chapters
+    ch_title: "Chapters",
+    ch_modules: "modules",
+    ch_locked: "Unlock with Pro",
+    ch_guest_title: "Content Locked",
+    ch_guest_desc: "Login to access all chapters and modules",
+    ch_guest_btn: "Sign In",
+    ch_empty_title: "No chapters yet",
+    ch_empty_sub: "Add from the admin panel",
+
+    inner_modules: "Modules",
+    inner_flash: "Flashcards",
+    inner_notes: "Notes",
+
+    // Tests
+    test_title: "Test Series",
+    test_sub: "Practice in exam pattern",
+    live_soon: "LIVE SOON",
+    live_name: "Full Mock Test — JEE Mains Pattern",
+    live_meta: "3 Hours · 90 Questions · PCM",
+    live_register: "Register",
+    full_mock: "Full Mock",
+    full_mock_meta: "3 Hours · 90 Qs",
+    part_test: "Part Test",
+    part_test_meta: "1 Hour · 30 Qs",
+    ch_test: "Chapter Test",
+    ch_test_meta: "30 min · 25 Qs",
+    weekly_quiz: "Weekly Quiz",
+    weekly_meta: "20 min · Mixed",
+    pyq_title: "Previous Year Papers",
+
+    // Library
+    lib_title: "Library",
+    lib_sub: "Books, Notes, PYQ PDFs — all in one place",
+
+    // Leaderboard
+    lb_title: "Leaderboard",
+    lb_sub: "Who will be the NexIIT champion?",
+    lb_week: "This Week",
+    lb_month: "Monthly",
+    lb_all: "All Time",
+    lb_empty_title: "No entries yet",
+    lb_empty_sub: "Take a test and earn your rank!",
+
+    // Profile
+    prof_prem_title: "Subscribe — ₹499/month",
+    prof_prem_desc: "Unlock all chapters, tests and rooms",
+    prof_share_title: "Share Profile Card",
+    prof_share_desc: "Share your rank",
+    prof_tg_title: "Telegram Community",
+    prof_tg_desc: "Join the batch group",
+    prof_rooms_title: "Hostel & Study Rooms",
+    prof_rooms_desc: "Join a house, study together",
+    prof_logout: "Sign Out",
+    prof_logout_confirm: "Are you sure you want to sign out?",
+    account: "Account",
+    community: "Community",
+    settings: "Settings",
+    achievements: "Achievements",
+
+    // Social modal
+    social_title: "Hostel & Social",
+    social_sub: "Join your house — study together, win together",
+    houses_title: "Houses",
+    online_loading: "Loading...",
+    members_loading: "Loading members...",
+    coming_soon: "Coming Soon",
+    room_open: "Room Open →",
+    room_cta_title: "Open a Study Room?",
+    room_cta_sub: "Chat + music together",
+    install_title: "Install NexIIT",
+    install_sub: "Add to home screen",
+    install_btn: "Install",
+    recently_active: "Recently active",
+    no_one_online: "No one active right now",
+
+    // Toasts
+    toast_music: "Study Music — coming soon!",
+    toast_formula: "Formula Sheet loading...",
+    toast_premium: "Premium — coming soon!",
+    toast_share: "Share card — coming soon!",
+    toast_live: "Live test — coming soon!",
+    toast_pyq2024: "JEE Mains 2024 loading...",
+    toast_pyq2023: "JEE Mains 2023 loading...",
+    toast_adv: "JEE Advanced 2024 loading...",
+    toast_free: "Free module — coming soon!",
+    toast_room_guest: "Login to join a study room!",
+    toast_connected: "Internet connected!",
+    toast_offline: "Offline mode",
+    toast_loading: "Please wait...",
+    toast_focus: "Days remaining — stay focused!",
+
+    // Errors
+    err_phone: "Enter a valid 10 digit Indian mobile number",
+    err_otp6: "Enter the 6 digit OTP",
+    err_name_short: "Enter your name — at least 2 characters",
+    err_network: "Network error — please try again",
+    err_login_fail: "Login failed — please try again",
+    err_otp_fail: "Incorrect OTP",
+    err_rate: "Please wait 60 seconds before requesting another OTP",
+
+    // PWA
+    pwa_update: "NexIIT update available! Refresh?",
+  },
+
+  hi: {
+    tagline: "सीखो · समझो · महारत हासिल करो",
+    initializing: "लोड हो रहा है",
+
+    login_title: "लॉगिन करें",
+    login_desc: "अपनी पसंद का तरीका चुनें",
+    tab_telegram: "टेलीग्राम",
+    tab_mobile: "मोबाइल",
+    tab_guest: "गेस्ट",
+    send_otp: "OTP भेजें",
+    verify: "वेरीफाई करें",
+    otp_sent: "OTP भेजा गया",
+    otp_expire: "सेकंड में एक्सपायर",
+    otp_expired: "OTP एक्सपायर हो गया",
+    resend: "दोबारा भेजें",
+    guest_info: "गेस्ट के रूप में ऐप एक्सप्लोर करें। पूरे कंटेंट के लिए लॉगिन जरूरी है।",
+    guest_placeholder: "अपना नाम डालें",
+    guest_btn: "गेस्ट के रूप में जारी रखें",
+    tg_domain_err: "बॉट डोमेन अमान्य है",
+
+    ob1_title: "आपका नाम क्या है?",
+    ob1_desc: "यह आपकी प्रोफाइल और लीडरबोर्ड पर दिखेगा।",
+    ob1_label: "पूरा नाम",
+    ob1_placeholder: "अपना पूरा नाम डालें",
+
+    ob2_title: "अपनी तैयारी के बारे में बताएं",
+    ob2_desc: "हम इसके आधार पर आपका कंटेंट personalize करेंगे।",
+    class_label: "वर्तमान कक्षा",
+    exam_label: "लक्षित परीक्षा",
+
+    ob3_title: "परीक्षा कब है?",
+    ob3_desc: "काउंटडाउन और दैनिक लक्ष्य इसी के अनुसार सेट होंगे।",
+    year_label: "लक्षित वर्ष",
+    this_year: "इस साल 🔥",
+    next_year: "अगले साल",
+
+    btn_next: "आगे →",
+    btn_back: "←",
+    btn_start: "NexIIT शुरू करें 🚀",
+
+    err_name: "कृपया अपना नाम डालें — कम से कम 2 अक्षर",
+    err_class: "कृपया अपनी कक्षा चुनें",
+    err_exam: "कृपया लक्षित परीक्षा चुनें",
+    err_year: "कृपया लक्षित वर्ष चुनें",
+
+    greet_late: "रात को पढ़ रहे हैं!",
+    greet_morning: "सुप्रभात",
+    greet_afternoon: "नमस्ते",
+    greet_evening: "शुभ संध्या",
+    greet_night: "देर रात की पढ़ाई!",
+    hello: "नमस्ते,",
+
+    countdown_label: "लक्ष्य काउंटडाउन",
+    days_left: "दिन",
+    today: "आज!",
+
+    guest_lock: "गेस्ट मोड — पूरे कंटेंट के लिए लॉगिन करें",
+
+    streak_title: "साप्ताहिक स्ट्रीक",
+    subjects_title: "विषय",
+    view_all: "सभी देखें →",
+    quick_title: "त्वरित पहुंच",
+    progress_title: "प्रगति",
+
+    sub_ph: "भौतिकी",
+    sub_ch: "रसायन विज्ञान",
+    sub_ma: "गणित",
+    sub_fr: "फ्री मॉड्यूल",
+    sub_try: "आज़माएं!",
+    chapters_word: "अध्याय",
+
+    q_tests: "टेस्ट सीरीज",
+    q_lib: "पुस्तकालय",
+    q_room: "स्टडी रूम",
+    q_music: "संगीत",
+    q_formula: "सूत्र",
+
+    stat_solved: "हल किए",
+    stat_acc: "सटीकता",
+    stat_rank: "रैंक",
+
+    days_short: ["सो","मं","बु","गु","शु","श","र"],
+
+    ch_title: "अध्याय",
+    ch_modules: "मॉड्यूल",
+    ch_locked: "Pro से अनलॉक करें",
+    ch_guest_title: "कंटेंट लॉक है",
+    ch_guest_desc: "सभी अध्याय देखने के लिए लॉगिन करें",
+    ch_guest_btn: "लॉगिन करें",
+    ch_empty_title: "अभी कोई अध्याय नहीं",
+    ch_empty_sub: "एडमिन पैनल से जोड़ें",
+
+    inner_modules: "मॉड्यूल",
+    inner_flash: "फ्लैशकार्ड",
+    inner_notes: "नोट्स",
+
+    test_title: "टेस्ट सीरीज",
+    test_sub: "परीक्षा पैटर्न में अभ्यास करें",
+    live_soon: "जल्द लाइव",
+    live_name: "पूर्ण मॉक टेस्ट — JEE मेन्स पैटर्न",
+    live_meta: "3 घंटे · 90 प्रश्न · PCM",
+    live_register: "रजिस्टर करें",
+    full_mock: "पूर्ण मॉक",
+    full_mock_meta: "3 घंटे · 90 प्र.",
+    part_test: "पार्ट टेस्ट",
+    part_test_meta: "1 घंटा · 30 प्र.",
+    ch_test: "अध्याय टेस्ट",
+    ch_test_meta: "30 मिनट · 25 प्र.",
+    weekly_quiz: "साप्ताहिक क्विज़",
+    weekly_meta: "20 मिनट · मिश्रित",
+    pyq_title: "पिछले वर्ष के प्रश्नपत्र",
+
+    lib_title: "पुस्तकालय",
+    lib_sub: "किताबें, नोट्स, PYQ PDF — सब एक जगह",
+
+    lb_title: "लीडरबोर्ड",
+    lb_sub: "NexIIT का चैंपियन कौन बनेगा?",
+    lb_week: "इस सप्ताह",
+    lb_month: "मासिक",
+    lb_all: "सर्वकालिक",
+    lb_empty_title: "अभी कोई नहीं",
+    lb_empty_sub: "टेस्ट दें और रैंक पाएं!",
+
+    prof_prem_title: "सब्सक्राइब करें — ₹499/माह",
+    prof_prem_desc: "सभी अध्याय, टेस्ट और रूम अनलॉक करें",
+    prof_share_title: "प्रोफाइल कार्ड शेयर करें",
+    prof_share_desc: "अपनी रैंक शेयर करें",
+    prof_tg_title: "टेलीग्राम कम्युनिटी",
+    prof_tg_desc: "बैच ग्रुप जॉइन करें",
+    prof_rooms_title: "हॉस्टल और स्टडी रूम",
+    prof_rooms_desc: "हाउस जॉइन करें, साथ पढ़ें",
+    prof_logout: "लॉगआउट",
+    prof_logout_confirm: "क्या आप लॉगआउट करना चाहते हैं?",
+    account: "अकाउंट",
+    community: "समुदाय",
+    settings: "सेटिंग्स",
+    achievements: "उपलब्धियां",
+
+    social_title: "हॉस्टल और सोशल",
+    social_sub: "अपना हाउस जॉइन करें — साथ पढ़ें, साथ जीतें",
+    houses_title: "हाउस",
+    online_loading: "लोड हो रहा है...",
+    members_loading: "सदस्य लोड हो रहे हैं...",
+    coming_soon: "जल्द आ रहा है",
+    room_open: "रूम खोलें →",
+    room_cta_title: "स्टडी रूम खोलना है?",
+    room_cta_sub: "चैट + म्यूजिक साथ",
+    install_title: "NexIIT इंस्टॉल करें",
+    install_sub: "होम स्क्रीन पर जोड़ें",
+    install_btn: "इंस्टॉल",
+    recently_active: "हाल ही में सक्रिय",
+    no_one_online: "अभी कोई सक्रिय नहीं",
+
+    toast_music: "स्टडी म्यूजिक — जल्द आ रहा है!",
+    toast_formula: "फॉर्मूला शीट लोड हो रही है...",
+    toast_premium: "प्रीमियम — जल्द आ रहा है!",
+    toast_share: "शेयर कार्ड — जल्द आ रहा है!",
+    toast_live: "लाइव टेस्ट — जल्द आ रहा है!",
+    toast_pyq2024: "JEE मेन्स 2024 लोड हो रहा है...",
+    toast_pyq2023: "JEE मेन्स 2023 लोड हो रहा है...",
+    toast_adv: "JEE एडवांस्ड 2024 लोड हो रहा है...",
+    toast_free: "फ्री मॉड्यूल — जल्द आ रहा है!",
+    toast_room_guest: "स्टडी रूम के लिए लॉगिन करें!",
+    toast_connected: "इंटरनेट कनेक्ट हो गया!",
+    toast_offline: "ऑफलाइन मोड",
+    toast_loading: "कृपया प्रतीक्षा करें...",
+    toast_focus: "दिन बाकी हैं — ध्यान लगाएं!",
+
+    err_phone: "वैध 10 अंकों का भारतीय मोबाइल नंबर डालें",
+    err_otp6: "6 अंकों का OTP डालें",
+    err_name_short: "अपना नाम डालें — कम से कम 2 अक्षर",
+    err_network: "नेटवर्क त्रुटि — दोबारा कोशिश करें",
+    err_login_fail: "लॉगिन विफल — दोबारा कोशिश करें",
+    err_otp_fail: "गलत OTP",
+    err_rate: "दूसरा OTP मांगने से पहले 60 सेकंड प्रतीक्षा करें",
+    pwa_update: "NexIIT अपडेट उपलब्ध है! रीफ्रेश करें?",
+  }
+};
+
+// Active language — default English
+let L = LANG.en;
+
+function setLang(code) {
+  L = LANG[code] || LANG.en;
+  localStorage.setItem('nx_lang', code);
+  applyLang();
+}
+
+function initLang() {
+  const saved = localStorage.getItem('nx_lang') || 'en';
+  L = LANG[saved] || LANG.en;
+}
+
+function t(key) {
+  return L[key] || LANG.en[key] || key;
+}
+
+function applyLang() {
+  // Splash
+  document.getElementById('sp-tagline').textContent   = t('tagline');
+  document.getElementById('sp-init').textContent      = t('initializing');
+
+  // Login
+  document.getElementById('l-title').textContent      = t('login_title');
+  document.getElementById('l-desc').textContent       = t('login_desc');
+
+  // Nav labels
+  const navLabels = document.querySelectorAll('.ni-label');
+  const navKeys   = ['Home','Chapters','Tests','Library','Profile'];
+  navLabels.forEach((el, i) => {
+    if (navKeys[i]) el.textContent = navKeys[i];
+  });
+}
+
+// ── FULL LANG APPLY ──
+function applyLang() {
+  const cur = localStorage.getItem('nx_lang') || 'en';
+
+  // Highlight active lang button
+  ['en','hi'].forEach(lang => {
+    const el = document.getElementById('lang-' + lang);
+    if (!el) return;
+    if (lang === cur) {
+      el.style.background = 'var(--accent)';
+      el.style.color = '#fff';
+      el.style.borderColor = 'var(--accent)';
+    } else {
+      el.style.background = 'var(--card)';
+      el.style.color = 'var(--tx2)';
+      el.style.borderColor = 'var(--border2)';
+    }
+  });
+
+  // Login screen
+  const lTitle = document.getElementById('l-title');
+  const lDesc  = document.getElementById('l-desc');
+  if (lTitle) lTitle.textContent = t('login_title');
+  if (lDesc)  lDesc.textContent  = t('login_desc');
+
+  const ltTg   = document.getElementById('lt-telegram');
+  const ltMob  = document.getElementById('lt-mobile');
+  const ltGuest= document.getElementById('lt-guest');
+  if (ltTg)    ltTg.textContent    = t('tab_telegram');
+  if (ltMob)   ltMob.textContent   = t('tab_mobile');
+  if (ltGuest) ltGuest.textContent = t('tab_guest');
+  const ltEmail = document.getElementById('lt-email');
+  if (ltEmail) ltEmail.textContent = t('tab_email');
+
+  // Taglines
+  const spTag = document.getElementById('sp-tagline-login');
+  if (spTag) spTag.textContent = t('tagline');
+
+  // Onboarding step titles
+  const ob1t = document.getElementById('ob1-title');
+  const ob1d = document.getElementById('ob1-desc');
+  if (ob1t) ob1t.textContent = t('ob1_title');
+  if (ob1d) ob1d.textContent = t('ob1_desc');
+
+  const nameInp = document.getElementById('ob-name-inp');
+  if (nameInp) nameInp.placeholder = t('ob1_placeholder');
+
+  const ob2t = document.getElementById('ob2-title');
+  const ob2d = document.getElementById('ob2-desc');
+  if (ob2t) ob2t.textContent = t('ob2_title');
+  if (ob2d) ob2d.textContent = t('ob2_desc');
+
+  const ob3t = document.getElementById('ob3-title');
+  const ob3d = document.getElementById('ob3-desc');
+  if (ob3t) ob3t.textContent = t('ob3_title');
+  if (ob3d) ob3d.textContent = t('ob3_desc');
+
+  // Buttons
+  document.querySelectorAll('.ob-btn-next').forEach((btn, i) => {
+    if (i < 2) btn.textContent = t('btn_next');
+    else btn.textContent = t('btn_start');
+  });
+
+  // Home
+  const greet = document.getElementById('v-greet');
+  if (greet) {
+    const h = new Date().getHours();
+    greet.textContent =
+      h < 5  ? t('greet_late') :
+      h < 12 ? t('greet_morning') :
+      h < 17 ? t('greet_afternoon') :
+      h < 20 ? t('greet_evening') : t('greet_night');
+  }
+
+  // Subject names
+  const subs = {
+    'v-sub-ph': 'sub_ph', 'v-sub-ch': 'sub_ch',
+    'v-sub-ma': 'sub_ma', 'v-sub-fr': 'sub_fr'
+  };
+  Object.entries(subs).forEach(([id, key]) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = t(key);
+  });
+
+  // Days of week
+  const days = document.querySelectorAll('.streak-day');
+  const dayKeys = t('days_short');
+  if (days.length && dayKeys) {
+    days.forEach((d, i) => {
+      if (!d.classList.contains('done') && !d.classList.contains('today'))
+        d.textContent = dayKeys[i] || d.textContent;
+    });
+  }
+
+  // Chapters tab title
+  const chTitle = document.getElementById('ch-main-title-el');
+  if (chTitle) chTitle.textContent = t('ch_title');
+
+  // Social modal
+  const socTitle = document.getElementById('social-modal-title');
+  const socSub   = document.getElementById('social-modal-sub');
+  if (socTitle) socTitle.textContent = t('social_title');
+  if (socSub)   socSub.textContent   = t('social_sub');
+}
+
 // ── LOGIN TAB SWITCH ──
 function switchLoginTab(tab, el) {
   document.querySelectorAll('.login-tab').forEach(t => t.classList.remove('active'));
@@ -2004,27 +2790,34 @@ function switchLoginTab(tab, el) {
 
 // ── TELEGRAM AUTH ──
 window.onTelegramAuth = async function(u) {
-  showLoading('Telegram verify ho raha hai...');
+  showLoading(t('toast_loading'));
   try {
+    const controller = new AbortController();
+    const timeout    = setTimeout(() => controller.abort(), 8000);
+
     const res  = await fetch(API + '/api/auth/telegram', {
-      method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(u)
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(u),
+      signal:  controller.signal,
     });
+    clearTimeout(timeout);
     const data = await res.json();
     hideLoading();
+
     if (data.ok) {
       AUTH_TOKEN = data.token;
       USER = { ...data.user, photo_url: u.photo_url || '' };
       localStorage.setItem('nx_token', AUTH_TOKEN);
       localStorage.setItem('nx_user', JSON.stringify(USER));
-      if (!USER.exam || !USER.class) showOnboarding(false);
-      else startApp();
-    } else {
-      document.getElementById('tg-err').textContent = data.error || 'Login failed — dobara try karo';
+      showOnboarding(false);
+      return;
     }
+    // Backend returned an error message
+    toast('❌ ' + (data.error || 'Telegram login failed — try again'));
   } catch(e) {
     hideLoading();
-    document.getElementById('tg-err').textContent = 'Network error — dobara try karo';
+    toast('❌ Network error — check connection and try again');
   }
 };
 
@@ -2032,12 +2825,12 @@ window.onTelegramAuth = async function(u) {
 async function sendSmsOtp() {
   const phone = document.getElementById('phone-inp').value.trim();
   if (!/^[6-9]\d{9}$/.test(phone)) {
-    document.getElementById('sms-err').textContent = 'Valid 10 digit Indian number daalo';
+    document.getElementById('sms-err').textContent = t('err_phone');
     return;
   }
   document.getElementById('sms-err').textContent = '';
   document.getElementById('btn-send-otp').disabled = true;
-  showLoading('OTP bhej raha hai...');
+  showLoading(t('toast_loading'));
   try {
     const res  = await fetch(API + '/api/auth/sms/send', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
@@ -2052,12 +2845,12 @@ async function sendSmsOtp() {
       startOtpTimer();
     } else {
       document.getElementById('btn-send-otp').disabled = false;
-      document.getElementById('sms-err').textContent = data.error || 'OTP send nahi hua';
+      document.getElementById('sms-err').textContent = data.error || t('err_network');
     }
   } catch(e) {
     hideLoading();
     document.getElementById('btn-send-otp').disabled = false;
-    document.getElementById('sms-err').textContent = 'Network error — dobara try karo';
+    document.getElementById('sms-err').textContent = t('err_network');
   }
 }
 
@@ -2067,10 +2860,10 @@ function startOtpTimer() {
   const el = document.getElementById('otp-timer-text');
   otpTimer = setInterval(() => {
     secs--;
-    el.textContent = secs + 's mein expire';
+    el.textContent = secs + ' ' + t('otp_expire');
     if (secs <= 0) {
       clearInterval(otpTimer);
-      el.textContent = 'OTP expire ho gaya';
+      el.textContent = t('otp_expired');
       document.getElementById('otp-resend').style.display = 'inline';
     }
   }, 1000);
@@ -2079,9 +2872,9 @@ function startOtpTimer() {
 async function verifySmsOtp() {
   const phone = document.getElementById('phone-inp').value.trim();
   const otp   = document.getElementById('otp-inp').value.trim();
-  if (otp.length !== 6) { document.getElementById('sms-err').textContent = '6 digit OTP daalo'; return; }
+  if (otp.length !== 6) { document.getElementById('sms-err').textContent = t('err_otp6'); return; }
   document.getElementById('sms-err').textContent = '';
-  showLoading('Verify ho raha hai...');
+  showLoading(t('toast_loading'));
   try {
     const res  = await fetch(API + '/api/auth/sms/verify', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
@@ -2097,11 +2890,11 @@ async function verifySmsOtp() {
       localStorage.setItem('nx_user', JSON.stringify(USER));
       showOnboarding(true);
     } else {
-      document.getElementById('sms-err').textContent = data.error || 'Galat OTP';
+      document.getElementById('sms-err').textContent = data.error || t('err_otp_fail');
     }
   } catch(e) {
     hideLoading();
-    document.getElementById('sms-err').textContent = 'Network error';
+    document.getElementById('sms-err').textContent = t('err_network');
   }
 }
 
@@ -2109,7 +2902,7 @@ async function verifySmsOtp() {
 function guestLogin() {
   const name = document.getElementById('guest-name-inp').value.trim();
   if (!name || name.length < 2) {
-    document.getElementById('guest-err').textContent = 'Naam daalo — kam se kam 2 characters';
+    document.getElementById('guest-err').textContent = t('err_name_short');
     return;
   }
   document.getElementById('guest-err').textContent = '';
@@ -2144,13 +2937,177 @@ function showLoginFromGuest() {
 
 // ── LOGOUT ──
 async function logout() {
-  if (!confirm('Logout karna chahte ho?')) return;
+  if (!confirm(t('prof_logout_confirm'))) return;
   try {
     await fetch(API + '/api/auth/logout', { method: 'POST', headers: { 'X-Auth-Token': AUTH_TOKEN } });
   } catch(e) {}
   localStorage.removeItem('nx_token');
   localStorage.removeItem('nx_user');
   location.reload();
+}
+
+// ── EMAIL OTP ──
+let emailOtpTimer = null;
+
+async function sendEmailOtp() {
+  const email = document.getElementById('email-inp').value.trim();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    document.getElementById('email-err').textContent = 'Enter a valid email address';
+    return;
+  }
+  document.getElementById('email-err').textContent = '';
+  document.getElementById('btn-send-email-otp').disabled = true;
+  showLoading(t('toast_loading'));
+  try {
+    const res  = await fetch(API + '/api/auth/email/send', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email })
+    });
+    const data = await res.json();
+    hideLoading();
+    if (data.ok) {
+      document.getElementById('email-step1').style.display = 'none';
+      document.getElementById('email-step2').classList.add('show');
+      document.getElementById('email-otp-sent-msg').textContent = 'OTP sent to ' + email;
+      startEmailOtpTimer();
+    } else {
+      document.getElementById('btn-send-email-otp').disabled = false;
+      document.getElementById('email-err').textContent = data.error || t('err_network');
+    }
+  } catch(e) {
+    hideLoading();
+    document.getElementById('btn-send-email-otp').disabled = false;
+    document.getElementById('email-err').textContent = t('err_network');
+  }
+}
+
+function startEmailOtpTimer() {
+  let secs = 60;
+  document.getElementById('email-otp-resend').style.display = 'none';
+  const el = document.getElementById('email-otp-timer-text');
+  clearInterval(emailOtpTimer);
+  emailOtpTimer = setInterval(() => {
+    secs--;
+    el.textContent = 'Expires in ' + secs + 's';
+    if (secs <= 0) {
+      clearInterval(emailOtpTimer);
+      el.textContent = 'OTP expired';
+      document.getElementById('email-otp-resend').style.display = 'inline';
+    }
+  }, 1000);
+}
+
+async function verifyEmailOtp() {
+  const email = document.getElementById('email-inp').value.trim();
+  const otp   = document.getElementById('email-otp-inp').value.trim();
+  if (otp.length !== 6) {
+    document.getElementById('email-err').textContent = t('err_otp6');
+    return;
+  }
+  document.getElementById('email-err').textContent = '';
+  showLoading(t('toast_loading'));
+  try {
+    const res  = await fetch(API + '/api/auth/email/verify', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, otp })
+    });
+    const data = await res.json();
+    hideLoading();
+    if (data.ok) {
+      clearInterval(emailOtpTimer);
+      AUTH_TOKEN = data.token;
+      USER = data.user;
+      localStorage.setItem('nx_token', AUTH_TOKEN);
+      localStorage.setItem('nx_user', JSON.stringify(USER));
+      showOnboarding(true); // ask name since email doesn't have it
+    } else {
+      document.getElementById('email-err').textContent = data.error || t('err_otp_fail');
+    }
+  } catch(e) {
+    hideLoading();
+    document.getElementById('email-err').textContent = t('err_network');
+  }
+}
+
+// ── GOOGLE ONE TAP ──
+function initGoogleOneTap() {
+  if (typeof google === 'undefined') return;
+  google.accounts.id.initialize({
+    client_id: '91724908060-frfms58ufivngehlomjro76i2m5ae3gm.apps.googleusercontent.com',
+    callback:  handleGoogleLogin,
+    auto_select: false,
+    cancel_on_tap_outside: false,
+  });
+  google.accounts.id.prompt();
+}
+
+async function handleGoogleLogin(response) {
+  showLoading(t('toast_loading'));
+  try {
+    const controller = new AbortController();
+    const timeout    = setTimeout(() => controller.abort(), 5000);
+    const res  = await fetch(API + '/api/auth/google', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({ credential: response.credential }),
+      signal:  controller.signal,
+    });
+    clearTimeout(timeout);
+    const data = await res.json();
+    hideLoading();
+    if (data.ok) {
+      AUTH_TOKEN = data.token;
+      USER = data.user;
+      localStorage.setItem('nx_token', AUTH_TOKEN);
+      localStorage.setItem('nx_user', JSON.stringify(USER));
+      showOnboarding(false);
+    } else {
+      toast('Google login failed — try again');
+    }
+  } catch(e) {
+    // Fallback — parse JWT locally if backend not available
+    hideLoading();
+    try {
+      const payload = JSON.parse(atob(response.credential.split('.')[1]));
+      const userId  = 'google_' + payload.sub;
+      AUTH_TOKEN    = 'google_local_' + userId + '_' + Date.now();
+      USER = {
+        id:        userId,
+        name:      payload.name || 'Student',
+        type:      'google',
+        email:     payload.email || '',
+        photo_url: payload.picture || '',
+        xp:        0,
+        streak:    0,
+        exam:      null,
+        class:     null,
+        target_year: '2026',
+      };
+      localStorage.setItem('nx_token', AUTH_TOKEN);
+      localStorage.setItem('nx_user', JSON.stringify(USER));
+      showOnboarding(false);
+    } catch(e2) {
+      toast('Google login failed — please try again');
+    }
+  }
+}
+
+// ── TRIGGER GOOGLE LOGIN ──
+function triggerGoogleLogin() {
+  if (typeof google !== 'undefined' && google.accounts) {
+    google.accounts.id.prompt((notification) => {
+      if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+        // One Tap not shown — use popup flow
+        google.accounts.id.renderButton(
+          document.getElementById('google-popup-btn'),
+          { theme: 'filled_black', size: 'large', shape: 'pill', width: 280 }
+        );
+        document.getElementById('google-popup-btn').querySelector('div[role="button"]')?.click();
+      }
+    });
+  } else {
+    toast('Google login loading — please try again');
+  }
 }
 
 // ── ONBOARDING ──
@@ -2222,7 +3179,7 @@ function obNext() {
   if (obStep === 1) {
     const name = document.getElementById('ob-name-inp').value.trim();
     if (!name || name.length < 2) {
-      document.getElementById('ob-err-' + obStep).textContent = 'Apna naam daalo — kam se kam 2 letters';
+      document.getElementById('ob-err-' + obStep).textContent = t('err_name');
       return;
     }
     obData.name = name;
@@ -2231,11 +3188,11 @@ function obNext() {
 
   if (obStep === 2) {
     if (!obData.class) {
-      document.getElementById('ob-err-' + obStep).textContent = 'Apni class select karo';
+      document.getElementById('ob-err-' + obStep).textContent = t('err_class');
       return;
     }
     if (!obData.exam) {
-      document.getElementById('ob-err-' + obStep).textContent = 'Exam target select karo';
+      document.getElementById('ob-err-' + obStep).textContent = t('err_exam');
       return;
     }
   }
@@ -2299,7 +3256,7 @@ async function loadChapters(sub) {
       : locked
         ? '<span class="badge b-lock">Pro</span>'
         : '<span class="badge b-live">Live</span>';
-    const oc = locked ? "toast('Pro mein unlock hoga!')" : 'openChapterByIdx(' + i + ')';
+    const oc = locked ? "toast(t('ch_locked'))" : 'openChapterByIdx(' + i + ')';
     return `<div class="ch-item" onclick="${oc}">
       <div class="ch-num ${cls}">${String(i+1).padStart(2,'0')}</div>
       <div class="ch-info">
@@ -2479,7 +3436,7 @@ async function loadOnlineMembers() {
 // ── ROOM ──
 function openRoom() {
   if (USER?.type === 'guest') {
-    toast('Room ke liye login karo!');
+    toast(t('toast_room_guest'));
     closeSocial();
     setTimeout(showLoginFromGuest, 300);
     return;
@@ -2489,6 +3446,9 @@ function openRoom() {
 }
 
 // ── SPLASH + INIT ──
+// Init language before anything
+initLang();
+
 window.addEventListener('load', () => {
   setTimeout(() => {
     document.getElementById('splash').classList.add('gone');
@@ -2501,13 +3461,13 @@ async function checkSession() {
   const token = localStorage.getItem('nx_token');
   const user  = localStorage.getItem('nx_user');
   if (token && user) {
-    // Guest session — no backend verify needed
-    if (token.startsWith('guest_token_')) {
-      AUTH_TOKEN = token;
-      USER = JSON.parse(user);
-      startApp();
-      return;
-    }
+    // Guest, local TG, or local Google session — no backend verify needed
+  if (token.startsWith('guest_token_') || token.startsWith('tg_local_') || token.startsWith('google_local_')) {
+    AUTH_TOKEN = token;
+    USER = JSON.parse(user);
+    startApp();
+    return;
+  }
     // Real session — verify with backend
     try {
       const res  = await fetch(API + '/api/auth/verify', { headers: { 'X-Auth-Token': token } });
@@ -2533,10 +3493,10 @@ function startApp() {
 
   const h = new Date().getHours();
   document.getElementById('v-greet').textContent =
-    h < 5  ? 'Raat ko pad raha hai!' :
-    h < 12 ? 'Good morning!' :
-    h < 17 ? 'Good afternoon!' :
-    h < 20 ? 'Good evening!' : 'Late night session!';
+    h < 5  ? t('greet_late') :
+    h < 12 ? t('greet_morning') :
+    h < 17 ? t('greet_afternoon') :
+    h < 20 ? t('greet_evening') : t('greet_night');
 
   const first = (USER.name || 'Student').split(' ')[0];
   document.getElementById('v-name').textContent  = first;
@@ -2648,7 +3608,7 @@ function filterLib(el, cat) {
         const nw = reg.installing;
         nw.addEventListener('statechange', () => {
           if (nw.state === 'installed' && navigator.serviceWorker.controller) {
-            if (confirm('NexIIT update available hai! Refresh karein?')) {
+            if (confirm(t('pwa_update'))) {
               nw.postMessage('SKIP_WAITING');
               window.location.reload();
             }
@@ -2667,8 +3627,8 @@ function filterLib(el, cat) {
     const btn = document.getElementById('pwa-install-btn');
     if (btn) btn.style.display = 'none';
   });
-  window.addEventListener('online',  () => toast('Internet connected!'));
-  window.addEventListener('offline', () => toast('Offline mode'));
+  window.addEventListener('online',  () => toast(t('toast_connected')));
+  window.addEventListener('offline', () => toast(t('toast_offline')));
 })();
 
 async function installPWA() {
